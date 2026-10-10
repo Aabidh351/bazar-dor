@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import NavLinks from "@/components/layout/NavLinks";
 import { Suspense } from "react";
 import MarqueeSec from "@/components/layout/Marquee";
+import Footer from "@/components/layout/Footer";
 
 const NotoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Suspense>
         <hr className="border-0 border-t border-gray-200" />
         {children}
+        <Footer />
       </body>
     </html>
   );
