@@ -4,3 +4,26 @@ export type Category = {
   nameBn: string;
   icon: string;
 };
+
+export type MarqueeType = {
+    id: number;
+    slug: string;
+    nameBn: string;
+    change: {
+        dir: "up" | "down" | "flat";
+        pct: number;
+    };
+    image: string;
+    unit: string;
+    today: number
+}
+
+export const unitTranslations: Record<string, string> = {
+  kg: "কেজি",
+  litre: "লিটার",
+  dozen: "ডজন",
+  piece: "পিস",
+};
+
+export const translateUnit = (unit: string): string =>
+  unitTranslations[unit] ?? unit;

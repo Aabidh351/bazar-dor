@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import NavLinks from "@/components/layout/NavLinks";
 import { Suspense } from "react";
+import MarqueeSec from "@/components/layout/Marquee";
 
 const NotoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -23,11 +24,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         <hr className="border-0 border-t border-gray-200" />
-        <Suspense fallback={<div>Loading Catagories...</div>}>
+        <Suspense
+          fallback={
+            <div className="text-center py-3 sm:py-5">
+              ক্যাটাগরি লোড হচ্ছে...
+            </div>
+          }
+        >
           <NavLinks />
         </Suspense>
         <hr className="border-0 border-t border-gray-200" />
-
+        <Suspense
+          fallback={
+            <div className="h-8 w-8 block mx-auto animate-spin rounded-full border-4 border-green-700 border-t-transparent"></div>
+          }
+        >
+          <MarqueeSec />
+        </Suspense>
+        <hr className="border-0 border-t border-gray-200" />
         {children}
       </body>
     </html>
