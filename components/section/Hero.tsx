@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import TodaysDate from "./layout/TodaysDate";
+import TodaysDate from "../layout/TodaysDate";
 import { Suspense } from "react";
 
 export default function Hero() {

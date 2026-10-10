@@ -1,13 +1,13 @@
 export async function getCatagories(){
     const apiData = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories",
+    "https://openapi.programming-hero.com/api/bazardor/categories",
   );
   return apiData.json();
 }
 
 export async function getProducts(){
     const apiData = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products",
+    "https://openapi.programming-hero.com/api/bazardor/products",
   );
   return apiData.json();
 }
