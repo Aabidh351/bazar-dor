@@ -37,3 +37,26 @@ export const unitTranslations: Record<string, string> = {
 
 export const translateUnit = (unit: string): string =>
   unitTranslations[unit] ?? unit;
+
+export type ProductMarket = {
+  market: string;
+  division: string;
+  min: number;
+  max: number;
+};
+
+export type Product = {
+  slug: string;
+  nameBn: string;
+  categoryNameBn: string;
+  category:string;
+  image: string;
+  unit: string;
+  today: number;
+  yesterday: number;
+  change: {
+    dir: "up" | "down" | "stable";
+    pct: number;
+  };
+  markets: ProductMarket[];
+};

@@ -11,3 +11,8 @@ export async function getProducts(){
   );
   return apiData.json();
 }
+
+export async function getSingleProduct(id:string){
+  const apiData =  await fetch(`https://openapi.programming-hero.com/api/bazardor/products/${id}`);
+    return apiData.json();
+}

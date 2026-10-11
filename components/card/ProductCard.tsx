@@ -4,7 +4,7 @@ import Link from "next/link";
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={`/product/${product.id}`}
       className="h-33.5 min-w-0 rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-3.75 transition-shadow duration-200 hover:border hover:border-green-700 hover:shadow-md"
     >
       <div className="flex items-center gap-3">
