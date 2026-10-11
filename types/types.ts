@@ -22,6 +22,7 @@ export type ProductCardProps = {
   product: MarqueeType;
 };
 
+
 export const unitTranslations: Record<string, string> = {
   kg: "কেজি",
   litre: "লিটার",

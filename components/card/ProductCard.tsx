@@ -1,8 +1,12 @@
 import { ProductCardProps, translateUnit } from "@/types/types";
+import Link from "next/link";
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <article className="min-w-0 rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-3.75 transition-shadow duration-200 hover:shadow-md">
+    <Link
+      href={`/product/${product.slug}`}
+      className="min-w-0 rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-3.75 transition-shadow duration-200 hover:border hover:border-green-700 hover:shadow-md"
+    >
       <div className="flex items-center gap-3">
         <div className="flex h-11.5 w-11.5 shrink-0 items-center justify-center rounded-xl bg-[#f0f5f0] text-[25px]">
           <span role="img" aria-label={product.nameBn}>
@@ -49,7 +53,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {"%"}
         </span>
       </div>
-    </article>
+    </Link>
   );
 };
 
