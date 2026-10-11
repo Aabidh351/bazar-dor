@@ -5,10 +5,15 @@ export type Category = {
   icon: string;
 };
 
+export type FoundCatProps = {
+  foundCat: Category;
+};
+
 export type MarqueeType = {
     id: number;
     slug: string;
     nameBn: string;
+    category:string;
     change: {
         dir: "up" | "down" | "flat";
         pct: number;

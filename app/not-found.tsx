@@ -5,7 +5,6 @@ export default function NotFound() {
   return (
     <main className="flex min-h-[80vh] items-center justify-center bg-[#EFF5F0] px-4 py-12">
       <div className="w-full max-w-xl rounded-3xl border border-[#DDE7DF] bg-[#FAFCFA] px-6 py-12 text-center shadow-sm sm:px-12">
-        {/* Illustration */}
         <div className="mx-auto mb-6 flex justify-center">
           <Image
             src="/sad.png"

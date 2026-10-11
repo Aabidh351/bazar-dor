@@ -5,7 +5,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="min-w-0 rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-3.75 transition-shadow duration-200 hover:border hover:border-green-700 hover:shadow-md"
+      className="h-33.5 min-w-0 rounded-2xl border border-[#dfe8df] bg-[#fbfdfb] p-3.75 transition-shadow duration-200 hover:border hover:border-green-700 hover:shadow-md"
     >
       <div className="flex items-center gap-3">
         <div className="flex h-11.5 w-11.5 shrink-0 items-center justify-center rounded-xl bg-[#f0f5f0] text-[25px]">
