@@ -7,7 +7,7 @@ export default function AuthRedirectToast() {
   const searchParams = useSearchParams();
 
   if (searchParams.get("reason") === "auth-required") {
-    toast.error("প্রোফাইল দেখতে আগে সাইন ইন করুন।", {
+    toast.error("পেইজটি দেখতে আগে সাইন ইন করুন।", {
       id: "auth-required",
     });
   }
