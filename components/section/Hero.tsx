@@ -24,7 +24,7 @@ export default function Hero() {
           </p>
 
           <Link
-            href="/products"
+            href="#all-products"
             className="mt-7 inline-flex items-center justify-center rounded-lg bg-[#05893E] px-5 py-3 text-sm font-semibold text-white shadow-[0_3px_4px_rgba(5,137,62,0.3)] transition hover:bg-[#047735]"
           >
             সব পণ্য দেখুন

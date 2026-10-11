@@ -38,7 +38,7 @@ const UpDown = async () => {
           </div>
         </div>
 
-        <div>
+        <div id="all-products">
           <div className="text-2xl font-bold text-center sm:text-start">
             সব পণ্য
           </div>

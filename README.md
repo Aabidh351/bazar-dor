@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+বাজার দর | BazarDor
 
-## Getting Started
+BazarDor is a Bengali-focused marketplace application designed to help users explore products and access their personal account securely. Built with modern web technologies, it provides a clean, responsive experience with email and social authentication.
 
-First, run the development server:
+✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Secure Authentication — Sign up and sign in using email and password, Google, or GitHub with Better Auth.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Protected Dashboard — Authenticated users can view their account details and update their profile information.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Protected Product Pages — Individual product pages are restricted to authorized users.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+User Profile Management — Users can review their personal details and update supported profile information.
 
-## Learn More
+Responsive Bengali Interface — A clean, mobile-friendly interface with Bengali-language content for a localized user experience.
 
-To learn more about Next.js, take a look at the following resources:
+🛠️ Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js 16 — React framework with App Router
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+TypeScript — Type-safe application development
 
-## Deploy on Vercel
+Tailwind CSS — Utility-first styling and responsive UI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Better Auth — Authentication and session management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MongoDB Atlas — Cloud database for persistent data storage
+
+Google OAuth — Google sign-in
+
+GitHub OAuth — GitHub sign-in
+
+Sonner - To show Toasts

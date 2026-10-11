@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Suspense>
         <hr className="border-0 border-t border-gray-200" />
         {children}
+        <Toaster position="top-center" richColors closeButton duration={4000} />
         <Footer />
       </body>
     </html>

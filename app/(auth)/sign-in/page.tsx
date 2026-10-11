@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, SubmitEvent } from "react";
+import { useState, Suspense } from "react";
 import { authClient } from "@/lib/auth-client";
 import PasswordField from "@/components/PasswordFields";
+import { authToasts } from "@/lib/toast";
+import AuthRedirectToast from "@/components/AuthRedirectToast";
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
-  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  const handleSubmit: React.ComponentProps<"form">["onSubmit"] = async (
+    event,
+  ) => {
     event.preventDefault();
     setError("");
     setPending(true);
@@ -26,10 +30,12 @@ export default function LoginPage() {
       });
 
       if (result.error) {
+        authToasts.signInFailed();
         setError(result.error.message || "লগইন করা যায়নি।");
         return;
       }
 
+      authToasts.signInSuccess();
       router.push("/");
       router.refresh();
     } catch {
@@ -37,7 +43,7 @@ export default function LoginPage() {
     } finally {
       setPending(false);
     }
-  }
+  };
 
   async function socialLogin(provider: "google" | "github") {
     setError("");
@@ -50,105 +56,116 @@ export default function LoginPage() {
       });
 
       if (result.error) {
+        authToasts.signInFailed();
         setError(result.error.message || "লগইন করা যায়নি।");
         setPending(false);
       }
     } catch {
+      authToasts.signInFailed();
       setError("লগইন শুরু করা যায়নি। আবার চেষ্টা করুন।");
       setPending(false);
     }
   }
 
   return (
-    <main
-      lang="bn"
-      className="flex min-h-[80vh] items-center justify-center bg-[#f0f5f1] px-4 py-8 text-[#202923]"
-    >
-      <section className="w-full max-w-89.25 rounded-2xl border border-[#e0e9e1] bg-[#fbfdfb] p-5">
-        <h1 className="text-center text-2xl font-extrabold">সাইন ইন করুন</h1>
-        <p className="mb-6 mt-1 text-center text-xs text-[#758078]">
-          আপনার অ্যাকাউন্টে প্রবেশ করুন।
-        </p>
+    <>
+      <Suspense fallback={null}>
+        <AuthRedirectToast />
+      </Suspense>
+      ;
+      <main
+        lang="bn"
+        className="flex min-h-[80vh] items-center justify-center bg-[#f0f5f1] px-4 py-8 text-[#202923]"
+      >
+        <section className="w-full max-w-89.25 rounded-2xl border border-[#e0e9e1] bg-[#fbfdfb] p-5">
+          <h1 className="text-center text-2xl font-extrabold">সাইন ইন করুন</h1>
+          <p className="mb-6 mt-1 text-center text-xs text-[#758078]">
+            আপনার অ্যাকাউন্টে প্রবেশ করুন।
+          </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="mb-1.5 block text-xs font-medium">
-              ইমেইল
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-1.5 block text-xs font-medium"
+              >
+                ইমেইল
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                disabled={pending}
+                placeholder="you@example.com"
+                className="h-9 w-full rounded-lg border border-[#e0e9e1] bg-transparent px-3 text-xs outline-none focus:border-green-600"
+              />
+            </div>
+
+            <div>
+              <PasswordField
+                id="password"
+                name="password"
+                label="পাসওয়ার্ড"
+                placeholder="পাসওয়ার্ড দিন"
+                autoComplete="new-password"
+                required
+                minLength={8}
+                maxLength={128}
+                disabled={pending}
+              />
+            </div>
+
+            {error && (
+              <p role="alert" className="text-xs text-red-600">
+                {error}
+              </p>
+            )}
+
+            <button
               disabled={pending}
-              placeholder="you@example.com"
-              className="h-9 w-full rounded-lg border border-[#e0e9e1] bg-transparent px-3 text-xs outline-none focus:border-green-600"
-            />
+              className="h-9 w-full rounded-lg bg-[#07883f] text-xs font-bold text-white hover:bg-[#067535] disabled:opacity-60"
+            >
+              {pending ? "অপেক্ষা করুন..." : "সাইন ইন করুন"}
+            </button>
+          </form>
+
+          <div className="my-4 text-center text-xs text-[#758078]">অথবা</div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              disabled={pending}
+              onClick={() => socialLogin("google")}
+              className="flex h-8.75 items-center justify-center gap-1.5 rounded-lg border border-[#e0e9e1] px-2 text-[11px] font-semibold hover:bg-[#f0f5f1] disabled:opacity-60"
+            >
+              <GoogleIcon />
+              Google দিয়ে চালিয়ে যান
+            </button>
+            <button
+              type="button"
+              disabled={pending}
+              onClick={() => socialLogin("github")}
+              className="flex h-8.75 items-center justify-center gap-1.5 rounded-lg border border-[#e0e9e1] px-2 text-[11px] font-semibold hover:bg-[#f0f5f1] disabled:opacity-60"
+            >
+              <GitHubIcon />
+              GitHub দিয়ে চালিয়ে যান
+            </button>
           </div>
 
-          <div>
-            <PasswordField
-              id="password"
-              name="password"
-              label="পাসওয়ার্ড"
-              placeholder="পাসওয়ার্ড দিন"
-              autoComplete="new-password"
-              required
-              minLength={8}
-              maxLength={128}
-              disabled={pending}
-            />
-          </div>
-
-          {error && (
-            <p role="alert" className="text-xs text-red-600">
-              {error}
-            </p>
-          )}
-
-          <button
-            disabled={pending}
-            className="h-9 w-full rounded-lg bg-[#07883f] text-xs font-bold text-white hover:bg-[#067535] disabled:opacity-60"
-          >
-            {pending ? "অপেক্ষা করুন..." : "সাইন ইন করুন"}
-          </button>
-        </form>
-
-        <div className="my-4 text-center text-xs text-[#758078]">অথবা</div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            disabled={pending}
-            onClick={() => socialLogin("google")}
-            className="flex h-8.75 items-center justify-center gap-1.5 rounded-lg border border-[#e0e9e1] px-2 text-[11px] font-semibold hover:bg-[#f0f5f1] disabled:opacity-60"
-          >
-            <GoogleIcon />
-            Google দিয়ে চালিয়ে যান
-          </button>
-          <button
-            type="button"
-            disabled={pending}
-            onClick={() => socialLogin("github")}
-            className="flex h-8.75 items-center justify-center gap-1.5 rounded-lg border border-[#e0e9e1] px-2 text-[11px] font-semibold hover:bg-[#f0f5f1] disabled:opacity-60"
-          >
-            <GitHubIcon />
-            GitHub দিয়ে চালিয়ে যান
-          </button>
-        </div>
-
-        <p className="mt-5 text-center text-xs">
-          অ্যাকাউন্ট নেই?{" "}
-          <Link
-            href="/signup"
-            className="font-medium text-[#07883f] hover:underline"
-          >
-            অ্যাকাউন্ট তৈরি করুন
-          </Link>
-        </p>
-      </section>
-    </main>
+          <p className="mt-5 text-center text-xs">
+            অ্যাকাউন্ট নেই?{" "}
+            <Link
+              href="/signup"
+              className="font-medium text-[#07883f] hover:underline"
+            >
+              অ্যাকাউন্ট তৈরি করুন
+            </Link>
+          </p>
+        </section>
+      </main>
+    </>
   );
 }
 function GoogleIcon() {

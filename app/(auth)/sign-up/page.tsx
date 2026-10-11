@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import PasswordField from "@/components/PasswordFields";
+import { authToasts } from "@/lib/toast";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -48,13 +49,14 @@ export default function SignupPage() {
       });
 
       if (result.error) {
+        authToasts.signUpFailed();
         setError(
           result.error.message ||
             "অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করুন।",
         );
         return;
       }
-
+      authToasts.signUpSuccess();
       router.push("/");
       router.refresh();
     } catch {

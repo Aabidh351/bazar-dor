@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { authToasts } from "@/lib/toast";
 
 type ProfileDashboardProps = {
   user: {
@@ -22,7 +23,10 @@ export default function ProfileDashboard({ user }: ProfileDashboardProps) {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
-  async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
+  const handleUpdate: React.ComponentProps<"form">["onSubmit"] = async (
+    event,
+  ) => {
+    if (!event) return;
     event.preventDefault();
 
     const trimmedName = name.trim();
@@ -53,6 +57,7 @@ export default function ProfileDashboard({ user }: ProfileDashboardProps) {
         setMessage(error.message || "নাম আপডেট করা যায়নি।");
         return;
       }
+      authToasts.updateSuccess();
 
       setName(trimmedName);
       setMessage("আপনার নাম সফলভাবে আপডেট হয়েছে।");
@@ -63,7 +68,7 @@ export default function ProfileDashboard({ user }: ProfileDashboardProps) {
     } finally {
       setIsUpdating(false);
     }
-  }
+  };
 
   async function handleSignOut() {
     setIsSigningOut(true);
@@ -72,12 +77,13 @@ export default function ProfileDashboard({ user }: ProfileDashboardProps) {
       const { error } = await authClient.signOut();
 
       if (error) {
+        authToasts.signOutFailed();
         setIsError(true);
         setMessage("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
         return;
       }
-
-      router.replace("/login");
+      authToasts.signOutSuccess();
+      router.replace("/");
       router.refresh();
     } catch {
       setIsError(true);

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import { authToasts } from "@/lib/toast";
 
 const NavButtons = () => {
   const { data: session, isPending } = authClient.useSession();
@@ -18,10 +19,11 @@ const NavButtons = () => {
       const { error } = await authClient.signOut();
 
       if (error) {
+        authToasts.signInFailed();
         console.error("Sign out failed:", error.message);
         return;
       }
-
+      authToasts.signOutSuccess();
       setMenuOpen(false);
       router.push("/");
       router.refresh();
