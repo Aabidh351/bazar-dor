@@ -48,7 +48,7 @@ export default async function ProductPage({
   return (
     <main
       lang="bn"
-      className="min-h-screen bg-[#f0f5f1] px-3 py-6 text-[#202923] sm:px-6"
+      className="min-h-screen bg-[#f0f5f1] px-3 py-6 sm:py-0 sm:pt-6 sm:pb-20 text-[#202923] sm:px-6"
     >
       <div className="mx-auto max-w-211">
         <nav
@@ -71,7 +71,7 @@ export default async function ProductPage({
 
         <section className="mb-4.5 flex flex-col items-stretch gap-4 rounded-[13px] border border-[#e1eae2] bg-[#fbfdfb] p-3.5 min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between sm:min-h-32.5 sm:gap-5 sm:p-4">
           {" "}
-          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+          <div className="flex min-w-0 items-center gap-3">
             <div
               aria-hidden="true"
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#f0f5f1] text-2xl sm:h-15 sm:w-15 sm:text-[29px]"
@@ -80,7 +80,8 @@ export default async function ProductPage({
             </div>
 
             <div className="min-w-0">
-              <h1 className="text-lg leading-snug font-bold sm:text-2xl">
+              <h1 className="text-base leading-snug font-bold wrap-break-word min-[480px]:text-lg sm:text-2xl">
+                {" "}
                 {product.nameBn}
               </h1>
 
@@ -94,41 +95,38 @@ export default async function ProductPage({
               </p>
             </div>
           </div>
-          <div className="flex w-19 min-w-19 shrink-0 flex-col items-center justify-center self-stretch rounded-[13px] bg-[#f0f5f1] px-1.5 py-3 text-center sm:w-[88px] sm:min-w-[88px]">
+          <div className="flex w-full flex-col items-center justify-center rounded-[13px] bg-[#f0f5f1] px-3 py-3 text-center min-[480px]:w-22 min-[480px]:min-w-22 min-[480px]:shrink-0 sm:self-stretch">
+            {" "}
             <span className="text-[10px] text-gray-500">আজকের দাম</span>
-
             <strong className="text-[23px] leading-tight font-bold sm:text-[26px]">
               {formatPrice(product.today)}
             </strong>
-
             <span className="text-[10px] text-gray-500 sm:text-[11px]">
               টাকা / কেজি
             </span>
-
             <span className={`mt-1 text-[10px] font-bold ${changeColor}`}>
               {changeIcon} {formatPrice(product.change.pct)}%
             </span>
           </div>
         </section>
 
-        <section className="rounded-[13px] border border-[#e1eae2] bg-[#fbfdfb] p-3.5 sm:p-[15px]">
+        <section className="rounded-[13px] border border-[#e1eae2] bg-[#fbfdfb] p-3.5 sm:p-3.75">
           <h2 className="mb-2.5 text-sm font-bold">দামের সারসংক্ষেপ</h2>
 
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-2.25">
+          <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2 lg:grid-cols-3 sm:gap-2.25">
+            {" "}
             <SummaryCard
               label="সর্বনিম্ন দাম"
               price={lowestPrice}
               description="সারাদেশে কম বাজার দর"
               color="text-green-600"
             />
-
             <SummaryCard
               label="সর্বোচ্চ দাম"
               price={highestPrice}
               description="সারাদেশে বেশি বাজার দর"
               color="text-red-600"
             />
-
             <SummaryCard
               label="গড় দাম"
               price={averagePrice}
@@ -142,7 +140,7 @@ export default async function ProductPage({
           </h2>
 
           <div className="overflow-x-auto rounded-[13px] border border-[#e1eae2]">
-            <table className="w-full min-w-150 border-collapse text-[11px]">
+            <table className="w-full min-w-140 border-collapse text-[11px] sm:min-w-0 sm:text-xs">
               <thead>
                 <tr className="bg-[#fbfdfb] text-[#707a73]">
                   <th className="px-3 py-3 text-left font-bold">বাজার</th>
@@ -152,7 +150,6 @@ export default async function ProductPage({
                   <th className="px-3 py-3 text-right font-bold">গড়</th>
                 </tr>
               </thead>
-
               <tbody>
                 {product.markets.map((market, index) => {
                   const average = getAveragePrice(market.min, market.max);
